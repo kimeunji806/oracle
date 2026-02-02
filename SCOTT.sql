@@ -98,4 +98,29 @@ ORDER BY total_1 -- 정렬기준.
 -- 문자열 like 연산자.
 SELECT *
 FROM student
-WHERE name like '%on';
+WHERE name like '%on____%';
+--
+SELECT profno
+       ,name
+       ,pay
+       ,bonus
+       ,hiredate
+FROM professor
+WHERE hiredate > to_date('1999-01-01', 'rrrr-mm-dd')
+ORDER by hiredate; -- 1970.01.01
+
+-- 학생테이블, 전화번호(02, 031, 051, 052, 053..)
+-- 부산 거주.
+SELECT *
+FROM student
+WHERE TEL like '051%';
+
+-- 이름 M 8개 이상인 사람.
+SELECT *
+FROM student
+WHERE name like 'M________%';
+
+-- 주민번호 10월달에 태어난 사람 조회.
+SELECT *
+FROM student
+WHERE JUMIN like '__10%';
