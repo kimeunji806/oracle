@@ -21,17 +21,39 @@ FROM professor
 WHERE deptno = 201;
 
 -- 108page.
+SELECT empno
+      ,ename
+      ,to_char(hiredate,'rrrr-mm-dd') "hiredate"
+      ,to_char((sal*12)+comm,'$999,999') "sal"
+      ,to_char(((sal*12)+comm)*0.15+(sal*12+comm),'$999,999') "15% up"
+FROM emp
+WHERE to_char((sal*12)+comm,'$999,999') is not null;
 
 -- 113page(nvl2).
+SELECT empno
+      ,ename
+      ,comm
+      ,nvl2(comm,'Exist','NULL') "nvl2"
+FROM emp
+WHERE deptno = 30;
 
 -- 학생테이블의 생년월일을 기준으로 1~3 => 1/4분기.
 --                             4~6 => 2/4분기.
 --                             7~9 => 3/4분기.
 --                             10~12 => 4/4분기.
 SELECT name
-      ,birthday
-      ,decode(to_char(birthday,'mm'),1, '1/4분기', 2, '1/4분기', 3, '1/4분기',
-      (decode(to_char(birthday,'mm'),  4, '1/4분기', 5, '2/4분기', 6, '2/4분기',
-      (decode(to_char(birthday,'mm'), 7, '3/4분기', 8, '3/4분기', 9, '3/4분기',
-      (decode(to_char(birthday,'mm'), 10, '4/4분기', 11, '4/4분기', 12, '4/4분기'))))))) "생년월일"
+      ,substr(birthday,4,2)
+      ,decode(to_char(birthday,'mm')
+      ,1, '1/4분기'
+      ,2, '1/4분기'
+      ,3, '1/4분기'
+      ,4, '2/4분기'
+      ,5, '2/4분기'
+      ,6, '2/4분기'
+      ,7, '3/4분기'
+      ,8, '3/4분기'
+      ,9, '3/4분기'
+      ,10, '4/4분기'
+      ,11, '4/4분기'
+      ,12, '4/4분기') "생년월일"
 FROM student;
