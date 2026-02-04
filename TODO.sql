@@ -42,7 +42,7 @@ WHERE deptno = 30;
 --                             7~9 => 3/4분기.
 --                             10~12 => 4/4분기.
 SELECT name
-      ,substr(birthday,4,2)
+      ,substr(birthday,4,2) birthday
       ,decode(to_char(birthday,'mm')
       ,1, '1/4분기'
       ,2, '1/4분기'
