@@ -204,3 +204,26 @@ SELECT deptno
 FROM emp
 GROUP BY rollup(deptno,job)
 ORDER BY 1;
+
+-- 게시판(board)
+-- 글번호, 제목, 작성자, 글내용, 작성시간 --, 조회수, 수정시간, 수정자...
+drop table board; -- 테이블 삭제.
+create table board (
+  board_no number(10),--글번호
+  title    varchar2(300) not null,--제목
+  writer   varchar2(50) not null,--작성자
+  content  varchar2(1000) not null,--글내용
+  created_at date--작성시간
+);
+insert into board (board_no, title, writer, content)
+values (1, 'test', 'user01', '연습글입니다');
+
+select *
+from board;
+
+
+
+
+
+
+
