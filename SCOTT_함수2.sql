@@ -215,15 +215,35 @@ create table board (
   content  varchar2(1000) not null,--글내용
   created_at date--작성시간
 );
+--컬럼추가.
+alter table board add (click_cnt number);
+--add(추가) / click_cnt number 클릭 카운트라는 컬럼추가(형태:숫자)
+alter table board modify content varchar(1000);
+--content의 입력수를 1000으로 늘리겠다.
+alter table board modify click_cnt number default 0;
+--modify : 수정하겠다
+
+desc board;
+
+--not null : 값을 반드시 입력하겠다.
+--primary key : 중복 불가능
+--default sysdate : sysdate 값을 기본값으로 설정하겠다.
+--drop : table 삭제
+
+--값 입력
 insert into board (board_no, title, writer, content)
 values (1, 'test', 'user01', '연습글입니다');
 
-select *
+insert into board (board_no, title, writer, content)
+values (2, 'test2', 'user02', '연습글입니다2');
+
+insert into board (board_no, title, writer, content)
+values (3, 'test3', 'user03', '연습글입니다3');
+
+SELECT *
 from board;
+commit;
 
-
-
-
-
-
-
+update board
+set    title = 'test3'
+where  board_no = 4;
