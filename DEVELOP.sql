@@ -1,2 +1,2 @@
 SELECT *
-FROM board;
+FROM emp;
