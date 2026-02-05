@@ -8,6 +8,15 @@ FROM dept;
 -- DML (insert, update, delete, merge)
 -- 1) insert into table명 (컬럼1, 컬럼2,...) values(값1, 값2,...)
 select * from board;
+insert into board(board_no, title,writer,content)
+values(1, 'test1', 'user01', 'content1');
+insert into board(board_no, title,writer,content)
+values(2, 'test2', 'user02', 'content1');
+insert into board(board_no, title,writer,content)
+values(3, 'test3', 'user03', 'content1');
+insert into board(board_no, title,writer,content)
+values(4, 'test4', 'user04', 'content1');
+
 -- 4/ 글등록연습/ user01/ sql연습중
 -- insert 완성.
 insert into board (board_no, title, content, writer) -- 순서 외워두기.

@@ -222,8 +222,13 @@ alter table board modify content varchar(1000);
 --content의 입력수를 1000으로 늘리겠다.
 alter table board modify click_cnt number default 0;
 --modify : 수정하겠다
+alter table board modify created_at date default sysdate;
 
 desc board;
+
+update board
+set    click_cnt = click_cnt + 1
+where  board_no = :bno;
 
 --not null : 값을 반드시 입력하겠다.
 --primary key : 중복 불가능
