@@ -38,6 +38,12 @@ set    click_cnt = click_cnt + 1
       ,content = :content
 where  board_no = :bno;
 
+-- 수정
+update board
+set   title = :title
+      ,content = :content
+where  board_no = :bno;
+
 delete from board
 where content like '%바인드%';
 
