@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      /* 페이지네이션 컨테이너 */
+      .pagination {
+        display: flex;
+        justify-content: center; /* 중앙 정렬 */
+        list-style: none;
+        padding: 0;
+        margin: 20px 0;
+      }
+
+      /* 각 리스트 항목 간격 */
+      .pagination li {
+        margin: 0 5px;
+      }
+
+      /* 기본 링크 스타일 */
+      .pagination a {
+        display: block;
+        padding: 8px 16px;
+        text-decoration: none;
+        color: #333;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        transition:
+          background-color 0.3s,
+          color 0.3s;
+      }
+
+      /* 마우스 호버 시 효과 */
+      .pagination a:hover {
+        background-color: #f1f1f1;
+      }
+
+      /* 현재 활성화된 페이지 스타일 */
+      .pagination a.active {
+        background-color: #007bff; /* 파란색 포인트 */
+        color: white;
+        border-color: #007bff;
+      }
+    </style>
+  </head>
+  <body>
+    <table border="2">
+      <tbody>
+        <tr>
+          <th>제목</th>
+          <td><input type="text" id="title" /></td>
+        </tr>
+        <tr>
+          <th>작성자</th>
+          <td><input type="text" id="writer" /></td>
+        </tr>
+        <tr>
+          <th>내용</th>
+          <td><textarea id="content"></textarea></td>
+        </tr>
+        <tr>
+          <td colspan="2" align="center">
+            <button onclick="insertBoard()">등록</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div id="boardlist">
+      <table border="2">
+        <thead>
+          <tr>
+            <th>글번호</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>삭제</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <nav aria-label="Page navigation">
+        <ul class="pagination">
+          <li><a href="#">&laquo; 이전</a></li>
+          <li><a href="#">1</a></li>
+          <li><a href="#" class="active">2</a></li>
+          <li><a href="#">3</a></li>
+          <li><a href="#">4</a></li>
+          <li><a href="#">5</a></li>
+          <li><a href="#">다음 &raquo;</a></li>
+        </ul>
+      </nav>
+    </div>
+    <script src="sample.js"></script>
+    <script>
+      fetch("http://localhost:3000/board/1") // get
+        .then((resp) => resp.json())
+        .then((data) => {
+          console.log(data);
+          data.forEach((elem) => {
+            console.log(elem); // 꼭 확인하기. 2026.02.05.
+            const tr = makeRow(elem);
+            // td, button 종료.
+            document.querySelector("#boardlist tbody").appendChild(tr);
+          });
+        });
+
+      function insertBoard() {
+        fetch("http://localhost:3000/board_insert", {
+          method: "post",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            // bno: 10,
+            title: document.querySelector("#title").value,
+            content: document.querySelector("#content").value,
+            writer: document.querySelector("#writer").value,
+          }),
+        })
+          .then((resp) => resp.json())
+          .then((data) => {
+            console.log(data);
+            if (data.retCode == "OK") {
+              let tr = makeRow(data);
+              document.querySelector("#boardlist tbody").appendChild(tr);
+            } else {
+              alert("등록중 예외.");
+            }
+          })
+          .catch((err) => console.log(err));
+      } // end of insertBoard.
+    </script>
+  </body>
+</html>
